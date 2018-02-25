@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using dotnetcore_webapi_and_ravendb.Models;
 using dotnetcore_webapi_and_ravendb.Models.Dtos;
@@ -19,7 +20,7 @@ namespace dotnetcore_webapi_and_ravendb.Controllers
         public async Task<IActionResult> GetList()
         {
             var users = await RavenDBProvider.GetEntities<User>();
-            return Ok(users);
+            return Ok(users.Select(x => x.Id));
         }
 
         [HttpGet]
