@@ -75,5 +75,36 @@ namespace dotnetcore_webapi_and_ravendb.Controllers
 
             return Ok();
         }
+
+        [HttpPut]
+        public async Task<IActionResult> Edit([FromQuery]string id, [FromBody]UserDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return BadRequest($"{nameof(id)} field may not be null, empty, or consists only of white-space characters.");
+            }
+
+            if (!await RavenDBProvider.IsEntityExists(id))
+            {
+                return NotFound($"The specified '{id}' entity not exists.");
+            }
+
+            var user = await RavenDBProvider.GetEntity<User>(id);
+            if (user == null)
+            {
+                return NotFound($"The specified '{id}' entity not exists.");
+            }
+
+            user.Name = dto.Name;
+            user.Age = dto.Age;
+
+            await RavenDBProvider.UpdateEntity(id, user);
+
+            return Ok();
+        }
     }
 }
