@@ -20,5 +20,17 @@ namespace dotnetcore_webapi_and_ravendb.Controllers
             var users = await RavenDBProvider.GetEntities<User>();
             return Ok(users);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetInfo([FromQuery]string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return BadRequest($"{nameof(id)} field may not be null, empty, or consists only of white-space characters.");
+            }
+
+            var user = await RavenDBProvider.GetEntity<User>(id);
+            return Ok(user);
+        }
     }
 }
