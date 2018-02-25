@@ -30,6 +30,11 @@ namespace dotnetcore_webapi_and_ravendb.Controllers
                 return BadRequest($"{nameof(id)} field may not be null, empty, or consists only of white-space characters.");
             }
 
+            if (!await RavenDBProvider.IsEntityExists(id))
+            {
+                return NotFound($"The specified '{id}' entity not exists.");
+            }
+
             var user = await RavenDBProvider.GetEntity<User>(id);
             return Ok(user);
         }
