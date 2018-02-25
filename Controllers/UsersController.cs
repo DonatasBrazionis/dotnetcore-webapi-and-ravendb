@@ -52,5 +52,23 @@ namespace dotnetcore_webapi_and_ravendb.Controllers
 
             return CreatedAtAction(nameof(Create), newUserEntity);
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromQuery]string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return BadRequest($"{nameof(id)} field may not be null, empty, or consists only of white-space characters.");
+            }
+
+            if (!await RavenDBProvider.IsEntityExists(id))
+            {
+                return NotFound($"The specified '{id}' entity not exists.");
+            }
+
+            await RavenDBProvider.DeleteEntity(id);
+
+            return Ok();
+        }
     }
 }
