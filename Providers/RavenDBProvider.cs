@@ -56,5 +56,14 @@ namespace dotnetcore_webapi_and_ravendb.Providers
                 return entities;
             }
         }
+
+        public async Task<bool> IsEntityExists(string entityId)
+        {
+            using (var session = DocumentStore.OpenAsyncSession())
+            {
+                bool exists = await session.Advanced.ExistsAsync(entityId);
+                return exists;
+            }
+        }
     }
 }
