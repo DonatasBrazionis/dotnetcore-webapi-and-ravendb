@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using dotnetcore_webapi_and_ravendb.Models;
+using dotnetcore_webapi_and_ravendb.Models.Dtos;
 using dotnetcore_webapi_and_ravendb.Providers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,6 +32,25 @@ namespace dotnetcore_webapi_and_ravendb.Controllers
 
             var user = await RavenDBProvider.GetEntity<User>(id);
             return Ok(user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody]UserDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var newUserEntity = new User
+            {
+                Name = dto.Name,
+                Age = dto.Age
+            };
+
+            await RavenDBProvider.CreateEntity(newUserEntity);
+
+            return CreatedAtAction(nameof(Create), newUserEntity);
         }
     }
 }
