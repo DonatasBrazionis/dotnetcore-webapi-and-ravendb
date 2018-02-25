@@ -20,21 +20,9 @@
 **Body:**
 ```
 [
-    {
-        "id": "users-1-A",
-        "name": "John",
-        "age": 19
-    },
-    {
-        "id": "users-2-A",
-        "name": "Tom",
-        "age": 60
-    },
-    {
-        "id": "users-3-A",
-        "name": "David",
-        "age": 54
-    }
+    "users-1-A",
+    "users-2-A",
+    "users-3-A"
 ]
 ```
 
