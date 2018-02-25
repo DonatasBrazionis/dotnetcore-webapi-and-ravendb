@@ -34,18 +34,18 @@ namespace dotnetcore_webapi_and_ravendb
             // This will instantiate a communication channel between application and the RavenDB server instance.
             services.AddSingleton<IDocumentStore>(provider =>
             {
-                // More info: 
-                // https://ravendb.net/docs/article-page/4.0/csharp/client-api/creating-document-store
-                // https://ravendb.net/docs/article-page/4.0/csharp/client-api/setting-up-authentication-and-authorization
+                var clientCertificatePath = @"{path_to_your_client_certificate_pfx_file}";
+                var databaseName = "{database_name}";
+                var databaseUrl = "{database_url}";
 
                 // Load certificate
-                var clientCertificate = new X509Certificate2(@"D:\RavenDB\no-name.Cluster.Settings\admin.client.certificate.no-name.pfx");
+                var clientCertificate = new X509Certificate2(clientCertificatePath);
 
                 var store = new DocumentStore
                 {
                     Certificate = clientCertificate,
-                    Database = "temp1",
-                    Urls = new[] { "https://a.no-name.ravendb.community/" },
+                    Database = databaseName,
+                    Urls = new[] { databaseUrl },
                     Conventions =
                     {
                         IdentityPartsSeparator = "-"
