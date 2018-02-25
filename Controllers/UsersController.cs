@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using dotnetcore_webapi_and_ravendb.Models;
@@ -23,21 +24,30 @@ namespace dotnetcore_webapi_and_ravendb.Controllers
             return Ok(users.Select(x => x.Id));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetInfo([FromQuery]string id)
+        [HttpPost]
+        public async Task<IActionResult> GetInfo([FromBody]InputUsersDto dto)
         {
-            if (string.IsNullOrWhiteSpace(id))
+            if (!ModelState.IsValid)
             {
-                return BadRequest($"{nameof(id)} field may not be null, empty, or consists only of white-space characters.");
+                return BadRequest(ModelState);
             }
 
-            if (!await RavenDBProvider.IsEntityExists(id))
+            var users = new List<User>();
+            foreach (var id in dto.Ids)
             {
-                return NotFound($"The specified '{id}' entity not exists.");
+                var user = await RavenDBProvider.GetEntity<User>(id);
+                if (user != null)
+                {
+                    users.Add(user);
+                }
             }
 
-            var user = await RavenDBProvider.GetEntity<User>(id);
-            return Ok(user);
+            var result = new OutputUsersDto
+            {
+                Users = users
+            };
+
+            return Ok(result);
         }
 
         [HttpPost]

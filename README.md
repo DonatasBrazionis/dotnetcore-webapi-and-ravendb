@@ -28,13 +28,28 @@
 
 ---
 
-## Get user info by id
+## Get user info by ids
 
 ### Request
 
-**URL:** `http://localhost:5000/api/users/getinfo?id=users-1-A`
+**URL:** `http://localhost:5000/api/users/getinfo`
 
-**Method:** `GET`
+**Method:** `POST`
+
+**Headers:**
+
+- `Content-Type` : `application/json`
+
+**Body:**
+```
+{
+	"Ids": [
+		"users-3-A",
+		"users-1-A",
+		"users-2-A"
+	]
+}
+```
 
 ### Response
 
@@ -45,9 +60,18 @@
 **Body:**
 ```
 {
-    "id": "users-1-A",
-    "name": "John",
-    "age": 19
+    "users": [
+        {
+            "id": "users-3-A",
+            "name": "Ale",
+            "age": 54
+        },
+        {
+            "id": "users-2-A",
+            "name": "Tom",
+            "age": 60
+        }
+    ]
 }
 ```
 
