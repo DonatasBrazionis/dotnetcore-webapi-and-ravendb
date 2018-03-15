@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,11 +12,50 @@ namespace dotnetcore_webapi_and_ravendb.Controllers
 {
     public class UsersController : Controller
     {
-        public UsersController(IRavenDatabaseProvider ravenDatabaseProvider)
+        public UsersController(IRavenDatabaseProvider ravenDatabaseProvider, ILoginProvider loginProvider)
         {
             RavenDatabaseProvider = ravenDatabaseProvider;
+            LoginProvider = loginProvider;
         }
         protected IRavenDatabaseProvider RavenDatabaseProvider { get; set; }
+        public ILoginProvider LoginProvider { get; set; }
+
+        [HttpPost]
+        public async Task<IActionResult> Register([FromBody]InputUserRegistrationDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var userLoginId = LoginProvider.GenerateId(dto.Email);
+            if (await RavenDatabaseProvider.IsEntityExists(userLoginId))
+            {
+                return BadRequest($"{nameof(dto.Email)} already exists.");
+            }
+
+            var user = new User
+            {
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                Email = dto.Email,
+                CreatedBy = "System",
+                DateCreated = DateTime.UtcNow
+            };
+            await RavenDatabaseProvider.CreateEntity(user);
+
+            var loginDetails = new LoginDetails
+            {
+                Id = userLoginId,
+                UniqueId = dto.Email,
+                UserId = user.Id,
+                CreatedBy = "System",
+                DateCreated = DateTime.UtcNow
+            };
+            LoginProvider.SetPassword(loginDetails, dto.Password);
+            await RavenDatabaseProvider.CreateEntity(loginDetails);
+
+            return Ok();
+        }
 
         [HttpGet]
         public async Task<IActionResult> GetList()
