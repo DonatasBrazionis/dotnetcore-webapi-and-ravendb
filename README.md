@@ -54,7 +54,7 @@
 
 ## Testing authorization server with [Postman](https://www.getpostman.com/)
 
-* Retrieving an `access_token` using the `Resource Owner Password Credentials (ROPC)` with
+* Retrieving an `access_token` using the `Resource Owner Password Credentials (ROPC)`
 
 ![request](./Docs/login.png)
 
