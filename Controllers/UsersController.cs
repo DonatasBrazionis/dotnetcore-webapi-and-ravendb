@@ -6,6 +6,7 @@ using dotnetcore_webapi_and_ravendb.Contracts;
 using dotnetcore_webapi_and_ravendb.Models;
 using dotnetcore_webapi_and_ravendb.Models.Dtos;
 using dotnetcore_webapi_and_ravendb.Providers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dotnetcore_webapi_and_ravendb.Controllers
@@ -55,6 +56,36 @@ namespace dotnetcore_webapi_and_ravendb.Controllers
             await RavenDatabaseProvider.CreateEntity(loginDetails);
 
             return Ok();
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetProfile()
+        {
+            var identity = User.Identity;
+            if (identity == null)
+            {
+                return Forbid();
+            }
+            var userId = identity.Name;
+
+            var user = await RavenDatabaseProvider.GetEntity<User>(userId);
+            if (user == null)
+            {
+                return Forbid();
+            }
+            var userDto = new OutputUserProfileDto
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Type = user.Type,
+                Email = user.Email,
+                DateCreated = user.DateCreated,
+                DateModified = user.DateModified
+            };
+
+            return Ok(userDto);
         }
 
         [HttpGet]
