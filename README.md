@@ -31,21 +31,21 @@
 * RavenDB
   * [How to Create a Document Store](https://ravendb.net/docs/article-page/4.0/csharp/client-api/creating-document-store)
   * [Setting up Authentication and Authorization](https://ravendb.net/docs/article-page/4.0/csharp/client-api/setting-up-authentication-and-authorization)
+* [Fluent Validation](https://github.com/JeremySkinner/FluentValidation)
+* Identity
+  * [AspNet.Security.OpenIdConnect.Server (ASOS)](https://github.com/aspnet-contrib/AspNet.Security.OpenIdConnect.Server)
+  * [**Creating your own OpenID Connect server with ASOS**](http://kevinchalet.com/2016/07/13/creating-your-own-openid-connect-server-with-asos-introduction/)
+  * [Password Hashing](https://docs.microsoft.com/en-us/aspnet/core/security/data-protection/consumer-apis/password-hashing)
+  * [BCrypt.Net-Core](https://github.com/neoKushan/BCrypt.Net-Core)
 
 ## TODO
 
 * [Create useful .gitignore files for your project](https://www.gitignore.io/)
-* [Fluent Validation](https://github.com/JeremySkinner/FluentValidation)
 * [Enforcing HTTPS in an ASP.NET Core app](https://docs.microsoft.com/en-us/aspnet/core/security/enforcing-ssl)
 * [Sorting, Filtering, and Paging with the Entity Framework in an ASP.NET MVC Application](https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application)
 * Caching
   * [In-memory caching in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/performance/caching/memory)
   * [Working with a distributed cache in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/performance/caching/distributed)
 * [Logging in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?tabs=aspnetcore2x)
-* Identity
-  * [AspNet.Security.OpenIdConnect.Server (ASOS)](https://github.com/aspnet-contrib/AspNet.Security.OpenIdConnect.Server)
-  * [**Creating your own OpenID Connect server with ASOS**](http://kevinchalet.com/2016/07/13/creating-your-own-openid-connect-server-with-asos-introduction/)
-  * [Password Hashing](https://docs.microsoft.com/en-us/aspnet/core/security/data-protection/consumer-apis/password-hashing)
-  * [BCrypt.Net-Core](https://github.com/neoKushan/BCrypt.Net-Core)
-  * [Account confirmation and password recovery in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/accconfirm?tabs=aspnetcore2x)
+* [Account confirmation and password recovery in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/accconfirm?tabs=aspnetcore2x)
 * [Safe storage of app secrets during development in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?tabs=visual-studio)
