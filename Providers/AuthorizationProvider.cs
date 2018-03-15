@@ -160,5 +160,32 @@ namespace dotnetcore_webapi_and_ravendb.Providers
             return;
         }
 
+        // Save refresh-token
+        public override async Task ApplyTokenResponse(ApplyTokenResponseContext context)
+        {
+            if (context.Response.Error == null && context.Response.RefreshToken != null)
+            {
+                if (context.Request.IsRefreshTokenGrantType())
+                {
+                    var refreshTokenId = RefreshTokenProvider.GenerateId(context.Request.RefreshToken);
+                    await RavenDatabaseProvider.DeleteEntity(refreshTokenId);
+                }
+
+                string remoteIpAddress = context.HttpContext.Connection.RemoteIpAddress?.ToString();
+                string userAgent = null;
+                if (context.HttpContext.Request.Headers.ContainsKey("User-Agent"))
+                {
+                    userAgent = context.HttpContext.Request.Headers["User-Agent"].ToString();
+                }
+                await RefreshTokenProvider.CreateAsync(
+                    context.Ticket.Principal.Identity.Name,
+                    context.Response.RefreshToken,
+                    remoteIpAddress,
+                    userAgent,
+                    context.Options.RefreshTokenLifetime);
+            }
+            return;
+        }
+
     }
 }
