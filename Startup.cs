@@ -72,7 +72,12 @@ namespace dotnetcore_webapi_and_ravendb
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "api/{controller}/{action}");
+            });
         }
     }
 }
