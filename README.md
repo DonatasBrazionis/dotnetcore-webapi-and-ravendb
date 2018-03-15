@@ -49,3 +49,21 @@
 * [Logging in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?tabs=aspnetcore2x)
 * [Account confirmation and password recovery in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/accconfirm?tabs=aspnetcore2x)
 * [Safe storage of app secrets during development in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?tabs=visual-studio)
+
+---
+
+## Retrieving an `access_token` using the `Resource Owner Password Credentials (ROPC)` with [Postman](https://www.getpostman.com/)
+
+![request](./Docs/login.png)
+
+---
+
+## Retrieving an `access_token` using the `refresh_token`
+
+![request](./Docs/refresh_token.png)
+
+---
+
+## Making an `API` request using the `access_token`
+
+![request_with_access_token](./Docs/request_with_access_token.png)
