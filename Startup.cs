@@ -52,6 +52,7 @@ namespace dotnetcore_webapi_and_ravendb
             services.AddScoped<IPasswordHasherProvider, PasswordHasherProvider>();
             services.AddScoped<ILoginProvider, LoginProvider>();
             services.AddScoped<IRefreshTokenProvider, RefreshTokenProvider>();
+            services.AddScoped<IUserProvider, UserProvider>();
 
             // This will instantiate a communication channel between application and the RavenDB server instance.
             services.AddSingleton<IDocumentStore>(provider =>
