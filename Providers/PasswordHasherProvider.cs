@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+using System.Text;
 using dotnetcore_webapi_and_ravendb.Contracts;
 
 namespace dotnetcore_webapi_and_ravendb.Providers
@@ -14,6 +16,20 @@ namespace dotnetcore_webapi_and_ravendb.Providers
         public string CalculateHash(string password, string salt)
         {
             return BCrypt.Net.BCrypt.HashPassword(password + salt);
+        }
+
+        public string GetMD5(string str)
+        {
+            using (var md5 = MD5.Create())
+            {
+                byte[] data = md5.ComputeHash(Encoding.UTF8.GetBytes(str));
+                StringBuilder sBuilder = new StringBuilder();
+                for (int i = 0; i < data.Length; i++)
+                {
+                    sBuilder.Append(data[i].ToString("x2"));
+                }
+                return sBuilder.ToString();
+            }
         }
     }
 }
