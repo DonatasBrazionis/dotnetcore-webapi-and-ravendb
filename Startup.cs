@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using dotnetcore_webapi_and_ravendb.Contracts;
 using dotnetcore_webapi_and_ravendb.Providers;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -31,7 +32,7 @@ namespace dotnetcore_webapi_and_ravendb
             services.AddMvc()
                     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
 
-            services.AddScoped<RavenDBProvider>();
+            services.AddScoped<IRavenDatabaseProvider, RavenDBProvider>();
 
             // This will instantiate a communication channel between application and the RavenDB server instance.
             services.AddSingleton<IDocumentStore>(provider =>

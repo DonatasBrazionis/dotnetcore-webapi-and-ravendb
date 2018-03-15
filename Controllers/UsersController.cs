@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using dotnetcore_webapi_and_ravendb.Contracts;
 using dotnetcore_webapi_and_ravendb.Models;
 using dotnetcore_webapi_and_ravendb.Models.Dtos;
 using dotnetcore_webapi_and_ravendb.Providers;
@@ -10,16 +11,16 @@ namespace dotnetcore_webapi_and_ravendb.Controllers
 {
     public class UsersController : Controller
     {
-        public UsersController(RavenDBProvider ravenDBProvider)
+        public UsersController(IRavenDatabaseProvider ravenDatabaseProvider)
         {
-            RavenDBProvider = ravenDBProvider;
+            RavenDatabaseProvider = ravenDatabaseProvider;
         }
-        protected RavenDBProvider RavenDBProvider { get; set; }
+        protected IRavenDatabaseProvider RavenDatabaseProvider { get; set; }
 
         [HttpGet]
         public async Task<IActionResult> GetList()
         {
-            var users = await RavenDBProvider.GetEntities<User>();
+            var users = await RavenDatabaseProvider.GetEntities<User>();
             return Ok(users.Select(x => x.Id));
         }
 
@@ -34,7 +35,7 @@ namespace dotnetcore_webapi_and_ravendb.Controllers
             var users = new List<User>();
             foreach (var id in dto.Ids)
             {
-                var user = await RavenDBProvider.GetEntity<User>(id);
+                var user = await RavenDatabaseProvider.GetEntity<User>(id);
                 if (user != null)
                 {
                     users.Add(user);
@@ -63,7 +64,7 @@ namespace dotnetcore_webapi_and_ravendb.Controllers
                 Age = dto.Age
             };
 
-            await RavenDBProvider.CreateEntity(newUserEntity);
+            await RavenDatabaseProvider.CreateEntity(newUserEntity);
 
             return CreatedAtAction(nameof(Create), newUserEntity);
         }
@@ -76,12 +77,12 @@ namespace dotnetcore_webapi_and_ravendb.Controllers
                 return BadRequest($"{nameof(id)} field may not be null, empty, or consists only of white-space characters.");
             }
 
-            if (!await RavenDBProvider.IsEntityExists(id))
+            if (!await RavenDatabaseProvider.IsEntityExists(id))
             {
                 return NotFound($"The specified '{id}' entity not exists.");
             }
 
-            await RavenDBProvider.DeleteEntity(id);
+            await RavenDatabaseProvider.DeleteEntity(id);
 
             return Ok();
         }
@@ -98,12 +99,12 @@ namespace dotnetcore_webapi_and_ravendb.Controllers
                 return BadRequest($"{nameof(id)} field may not be null, empty, or consists only of white-space characters.");
             }
 
-            if (!await RavenDBProvider.IsEntityExists(id))
+            if (!await RavenDatabaseProvider.IsEntityExists(id))
             {
                 return NotFound($"The specified '{id}' entity not exists.");
             }
 
-            var user = await RavenDBProvider.GetEntity<User>(id);
+            var user = await RavenDatabaseProvider.GetEntity<User>(id);
             if (user == null)
             {
                 return NotFound($"The specified '{id}' entity not exists.");
@@ -112,7 +113,7 @@ namespace dotnetcore_webapi_and_ravendb.Controllers
             user.Name = dto.Name;
             user.Age = dto.Age;
 
-            await RavenDBProvider.UpdateEntity(id, user);
+            await RavenDatabaseProvider.UpdateEntity(id, user);
 
             return Ok();
         }

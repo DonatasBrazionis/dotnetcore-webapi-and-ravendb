@@ -1,16 +1,17 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using dotnetcore_webapi_and_ravendb.Contracts;
 using Raven.Client.Documents;
 
 namespace dotnetcore_webapi_and_ravendb.Providers
 {
-    public class RavenDBProvider
+    public class RavenDBProvider : IRavenDatabaseProvider
     {
         public RavenDBProvider(IDocumentStore documentStore)
         {
             DocumentStore = documentStore;
         }
-        public IDocumentStore DocumentStore { get; set; }
+        protected IDocumentStore DocumentStore { get; set; }
 
         public async Task CreateEntity<T>(T entity)
         {
