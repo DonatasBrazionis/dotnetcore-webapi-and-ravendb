@@ -52,18 +52,16 @@
 
 ---
 
-## Retrieving an `access_token` using the `Resource Owner Password Credentials (ROPC)` with [Postman](https://www.getpostman.com/)
+## Testing authorization server with [Postman](https://www.getpostman.com/)
+
+* Retrieving an `access_token` using the `Resource Owner Password Credentials (ROPC)` with
 
 ![request](./Docs/login.png)
 
----
-
-## Retrieving an `access_token` using the `refresh_token`
+* Retrieving an `access_token` using the `refresh_token`
 
 ![request](./Docs/refresh_token.png)
 
----
-
-## Making an `API` request using the `access_token`
+* Making an `API` request using the `access_token`
 
 ![request_with_access_token](./Docs/request_with_access_token.png)
