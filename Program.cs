@@ -19,6 +19,8 @@ namespace dotnetcore_webapi_and_ravendb
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                // TODO: remove this in production server.
+                .UseEnvironment("Development")
                 .UseStartup<Startup>()
                 .Build();
     }
