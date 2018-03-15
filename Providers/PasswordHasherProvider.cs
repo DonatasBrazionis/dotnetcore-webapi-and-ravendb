@@ -18,6 +18,19 @@ namespace dotnetcore_webapi_and_ravendb.Providers
             return BCrypt.Net.BCrypt.HashPassword(password + salt);
         }
 
+        /// <summary>
+        /// Check password
+        /// more info: https://github.com/neoKushan/BCrypt.Net-Core
+        /// </summary>
+        /// <param name="password">Password phrase</param>
+        /// <param name="salt">Salt for a password</param>
+        /// <param name="hash">Hashed password</param>
+        /// <returns></returns>
+        public bool CheckPassword(string password, string salt, string hash)
+        {
+            return BCrypt.Net.BCrypt.Verify(password + salt, hash);
+        }
+
         public string GetMD5(string str)
         {
             using (var md5 = MD5.Create())
