@@ -89,6 +89,7 @@ namespace dotnetcore_webapi_and_ravendb.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetList()
         {
             var users = await RavenDatabaseProvider.GetEntities<User>();
@@ -96,6 +97,7 @@ namespace dotnetcore_webapi_and_ravendb.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetInfo([FromBody]InputUsersDto dto)
         {
             if (!ModelState.IsValid)
