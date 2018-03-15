@@ -33,6 +33,7 @@ namespace dotnetcore_webapi_and_ravendb
                     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             services.AddScoped<IRavenDatabaseProvider, RavenDBProvider>();
+            services.AddScoped<IPasswordHasherProvider, PasswordHasherProvider>();
 
             // This will instantiate a communication channel between application and the RavenDB server instance.
             services.AddSingleton<IDocumentStore>(provider =>
