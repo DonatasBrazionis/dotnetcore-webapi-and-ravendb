@@ -59,5 +59,15 @@ namespace dotnetcore_webapi_and_ravendb.Providers
             return false;
         }
 
+        public bool IsPasswordCorrect(LoginDetails entity, string password)
+        {
+            var correctPassword = PasswordHasherProvider.CheckPassword(password, entity.PasswordSalt, entity.PasswordHash);
+            if (correctPassword)
+            {
+                return true;
+            }
+            return false;
+        }
+
     }
 }

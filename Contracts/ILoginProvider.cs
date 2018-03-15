@@ -13,5 +13,6 @@ namespace dotnetcore_webapi_and_ravendb.Contracts
         Task<LoginDetails> GetEntity(string uniqueId);
         Task ResetAccessFailedCountAsync(LoginDetails entity);
         Task<bool> IsLockedOutAsync(LoginDetails entity);
+        bool IsPasswordCorrect(LoginDetails entity, string password);
     }
 }
