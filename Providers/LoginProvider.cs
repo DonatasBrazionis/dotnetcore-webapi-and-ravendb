@@ -32,5 +32,14 @@ namespace dotnetcore_webapi_and_ravendb.Providers
             var entity = await RavenDatabaseProvider.GetEntity<LoginDetails>(loginProviderId);
             return entity;
         }
+
+        public async Task ResetAccessFailedCountAsync(LoginDetails entity)
+        {
+            entity.DateLockoutEndsUtc = null;
+            entity.AccessFailedCount = 0;
+
+            await RavenDatabaseProvider.UpdateEntity(entity.Id, entity);
+        }
+
     }
 }
