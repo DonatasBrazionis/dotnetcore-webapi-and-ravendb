@@ -15,6 +15,7 @@ namespace dotnetcore_webapi_and_ravendb.Providers
         protected IPasswordHasherProvider PasswordHasherProvider { get; set; }
         protected IRavenDatabaseProvider RavenDatabaseProvider { get; set; }
 
+        public bool SupportsUserLockout { get; private set; } = true;
         public string GenerateId(string uniqueId) => $"login/{uniqueId}";
 
         public void SetPassword(LoginDetails entity, string password)
