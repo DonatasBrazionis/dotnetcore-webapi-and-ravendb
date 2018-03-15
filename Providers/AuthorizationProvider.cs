@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Authentication;
 
 namespace dotnetcore_webapi_and_ravendb.Providers
 {
+    /// <summary>
+    /// Resource owner password credentials (ROPC) flow implementation using AspNet.Security.OpenIdConnect.Server (ASOS)
+    /// </summary>
     public class AuthorizationProvider : OpenIdConnectServerProvider
     {
         public AuthorizationProvider(
