@@ -16,6 +16,9 @@ namespace dotnetcore_webapi_and_ravendb.Providers
         protected IRavenDatabaseProvider RavenDatabaseProvider { get; set; }
 
         public bool SupportsUserLockout { get; private set; } = true;
+        public int AccessFailedMaxCount { get; private set; } = 3;
+        public TimeSpan LockoutTime { get; private set; } = new TimeSpan(0, 5, 0);
+
         public string GenerateId(string uniqueId) => $"login/{uniqueId}";
 
         public void SetPassword(LoginDetails entity, string password)
@@ -67,6 +70,16 @@ namespace dotnetcore_webapi_and_ravendb.Providers
                 return true;
             }
             return false;
+        }
+
+        public async Task AccessFailedAsync(LoginDetails entity)
+        {
+            entity.AccessFailedCount++;
+            if (entity.AccessFailedCount >= AccessFailedMaxCount)
+            {
+                entity.DateLockoutEndsUtc = DateTime.UtcNow.Add(LockoutTime);
+            }
+            await RavenDatabaseProvider.UpdateEntity(entity.Id, entity);
         }
 
     }
