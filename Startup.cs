@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using dotnetcore_webapi_and_ravendb.Providers;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -27,7 +28,8 @@ namespace dotnetcore_webapi_and_ravendb
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddMvc();
+            services.AddMvc()
+                    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             services.AddScoped<RavenDBProvider>();
 
