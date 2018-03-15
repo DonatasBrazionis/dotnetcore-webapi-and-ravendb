@@ -8,5 +8,6 @@ namespace dotnetcore_webapi_and_ravendb.Contracts
     {
         string GenerateId(string uniqueId);
         void SetPassword(LoginDetails entity, string password);
+        Task<LoginDetails> GetEntity(string uniqueId);
     }
 }
