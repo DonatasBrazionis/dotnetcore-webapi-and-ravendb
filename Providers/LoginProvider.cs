@@ -41,5 +41,23 @@ namespace dotnetcore_webapi_and_ravendb.Providers
             await RavenDatabaseProvider.UpdateEntity(entity.Id, entity);
         }
 
+        public async Task<bool> IsLockedOutAsync(LoginDetails entity)
+        {
+            if (entity.DateLockoutEndsUtc == null)
+            {
+                return false;
+            }
+            if (entity.DateLockoutEndsUtc > DateTime.UtcNow)
+            {
+                return true;
+            }
+            // Remove lock-out if time ended
+            if (entity.DateLockoutEndsUtc <= DateTime.UtcNow)
+            {
+                await ResetAccessFailedCountAsync(entity);
+            }
+            return false;
+        }
+
     }
 }
