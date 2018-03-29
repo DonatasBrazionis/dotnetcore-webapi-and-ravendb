@@ -65,3 +65,7 @@
 * Making an `API` request using the `access_token`
 
 ![request_with_access_token](./Docs/request_with_access_token.png)
+
+## License
+
+Released under the [MIT](./LICENSE).
