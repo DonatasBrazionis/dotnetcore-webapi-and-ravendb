@@ -39,7 +39,7 @@
   * [BCrypt.Net-Core](https://github.com/neoKushan/BCrypt.Net-Core)
 
 ## TODO
-
+* [Safe storage of app secrets in development in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-2.1&tabs=windows)
 * [Create useful .gitignore files for your project](https://www.gitignore.io/)
 * [Enforcing HTTPS in an ASP.NET Core app](https://docs.microsoft.com/en-us/aspnet/core/security/enforcing-ssl)
 * [Sorting, Filtering, and Paging with the Entity Framework in an ASP.NET MVC Application](https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application)
